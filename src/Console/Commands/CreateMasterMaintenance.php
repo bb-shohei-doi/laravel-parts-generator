@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Artisan;
 
 class CreateMasterMaintenance extends Command
 {
+    protected $rootDir;
+
     /**
      * 前提情報
      * 1. {table}モデルは既に存在する
@@ -33,6 +35,8 @@ class CreateMasterMaintenance extends Command
      */
     public function handle()
     {
+        $this->rootDir = str_replace('Console/Commands', '', __DIR__);
+
         // 1. テーブル名（単数形）を引数で受け取る
         $table = ucfirst($this->argument('table'));
         // 2. web.phpにルーティングを追加get('/{table}', '{table}Controller@index')の形式
@@ -127,7 +131,7 @@ class CreateMasterMaintenance extends Command
         $ucTable = ucfirst($table);
         // resources/views/templates/index.blade.phpの内容をコピーして
         // :tableを$tableに置換してresources/views/{table}/index.blade.phpに保存する
-        $template = file_get_contents(resource_path('views/templates/index.blade.php'));
+        $template = file_get_contents($this->rootDir . 'resources/views/templates/index.blade.php');
         $content = str_replace(':lc:table', $lcTable, $template);
         $content = str_replace(':uc:table', $ucTable, $content);
         file_put_contents(resource_path('views/' . $table . '/index.blade.php'), $content);
@@ -135,6 +139,9 @@ class CreateMasterMaintenance extends Command
 
     private function createViewLivewireDirectory(string $table)
     {
+        if (!file_exists(resource_path('views/livewire'))) {
+            mkdir(resource_path('views/livewire'));
+        }
         $path = resource_path('views/livewire/' . ucfirst($table));
         if (!file_exists($path)) {
             mkdir($path);
@@ -143,6 +150,9 @@ class CreateMasterMaintenance extends Command
 
     private function createLivewireDirectory(string $table)
     {
+        if (!file_exists(app_path('Livewire'))) {
+            mkdir(app_path('Livewire'));
+        }
         $path = app_path('Livewire/' . ucfirst($table));
         if (!file_exists($path)) {
             mkdir($path);
@@ -164,12 +174,12 @@ class CreateMasterMaintenance extends Command
     {
         $ucTable = ucfirst($table);
         $lcTable = strtolower($table);
-        $template = file_get_contents(resource_path('views/livewire/template/list-template.blade.php'));
+        $template = file_get_contents($this->rootDir . 'resources/views/livewire/template/list-template.blade.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         file_put_contents(resource_path('views/livewire/' . $ucTable . '/list-' . $lcTable . '.blade.php'), $content);
 
-        $template = file_get_contents(app_path('Livewire/Template/ListTemplate.php'));
+        $template = file_get_contents($this->rootDir . 'Livewire/Template/ListTemplate.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         file_put_contents(app_path('Livewire/' . $ucTable . '/List' . $ucTable . '.php'), $content);
@@ -190,13 +200,13 @@ class CreateMasterMaintenance extends Command
     {
         $ucTable = ucfirst($table);
         $lcTable = strtolower($table);
-        $template = file_get_contents(resource_path('views/livewire/template/create-template-modal.blade.php'));
+        $template = file_get_contents($this->rootDir . 'resources/views/livewire/template/create-template-modal.blade.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         $content = str_replace('    :columns', $this->getColumnInputs($table), $content);
         file_put_contents(resource_path('views/livewire/' . $ucTable . '/create-' . $lcTable . '-modal.blade.php'), $content);
 
-        $template = file_get_contents(app_path('Livewire/Template/CreateTemplateModal.php'));
+        $template = file_get_contents($this->rootDir . 'Livewire/Template/CreateTemplateModal.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         $content = str_replace(':columns', $this->getColumns($table), $content);
@@ -218,13 +228,13 @@ class CreateMasterMaintenance extends Command
     {
         $ucTable = ucfirst($table);
         $lcTable = strtolower($table);
-        $template = file_get_contents(resource_path('views/livewire/template/update-template-modal.blade.php'));
+        $template = file_get_contents($this->rootDir . 'resources/views/livewire/template/update-template-modal.blade.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         $content = str_replace('    :columns', $this->getColumnInputs($table), $content);
         file_put_contents(resource_path('views/livewire/' . $ucTable . '/update-' . $lcTable . '-modal.blade.php'), $content);
 
-        $template = file_get_contents(app_path('Livewire/Template/UpdateTemplateModal.php'));
+        $template = file_get_contents($this->rootDir . 'Livewire/Template/UpdateTemplateModal.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         $content = str_replace(':columns', $this->getColumns($table), $content);
@@ -247,12 +257,12 @@ class CreateMasterMaintenance extends Command
     {
         $ucTable = ucfirst($table);
         $lcTable = strtolower($table);
-        $template = file_get_contents(resource_path('views/livewire/template/delete-template-modal.blade.php'));
+        $template = file_get_contents($this->rootDir . 'resources/views/livewire/template/delete-template-modal.blade.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         file_put_contents(resource_path('views/livewire/' . $ucTable . '/delete-' . $lcTable . '-modal.blade.php'), $content);
 
-        $template = file_get_contents(app_path('Livewire/Template/DeleteTemplateModal.php'));
+        $template = file_get_contents($this->rootDir . 'Livewire/Template/DeleteTemplateModal.php');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         file_put_contents(app_path('Livewire/' . $ucTable . '/Delete' . $ucTable . 'Modal.php'), $content);
@@ -326,7 +336,7 @@ class CreateMasterMaintenance extends Command
     {
         $ucTable = ucfirst($table);
         $lcTable = strtolower($table);
-        $template = file_get_contents(resource_path('js/template/list.js'));
+        $template = file_get_contents($this->rootDir . 'resources/js/template/list.js');
         $content = str_replace(':uc:table', $ucTable, $template);
         $content = str_replace(':lc:table', $lcTable, $content);
         $content = str_replace(':columns', $this->getBindings($table), $content);
