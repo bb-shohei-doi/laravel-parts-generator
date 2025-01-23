@@ -1,0 +1,22 @@
+{
+  "name": "laravel-parts-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "axios": "^1.7.4",
+    "laravel-vite-plugin": "^1.0",
+    "tailwindcss": "^3.4.16",
+    "vite": "^6.0.3"
+  },
+  "dependencies": {
+    "@grapecity/wijmo": "^5.20242.21",
+    "@grapecity/wijmo.grid": "^5.20242.21"
+  }
+}

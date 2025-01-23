@@ -1,6 +1,11 @@
 {
     "name": "sd-883/laravel-parts-generator",
     "type": "library",
+    "scripts": {
+        "post-install-cmd": [
+            "npm install"
+        ]
+    },
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
