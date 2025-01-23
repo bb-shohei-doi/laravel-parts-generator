@@ -3,7 +3,7 @@
     "type": "library",
     "scripts": {
         "post-install-cmd": [
-            "cd vendor/sd-883/laravel-parts-generator && npm install"
+            "./vendor/bin/sail exec -T app sh -c 'cd vendor/sd-883/laravel-parts-generator && npm install'"
         ]
     },
     "require": {
