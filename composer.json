@@ -3,7 +3,7 @@
     "type": "library",
     "scripts": {
         "post-install-cmd": [
-            "npm install @grapecity/wijmo @grapecity/wijmo.grid"
+            "sail npm install @grapecity/wijmo @grapecity/wijmo.grid"
         ]
     },
     "require": {
