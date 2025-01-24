@@ -1,11 +1,6 @@
 {
     "name": "sd-883/laravel-parts-generator",
     "type": "library",
-    "scripts": {
-        "post-install-cmd": [
-            "sail npm install @grapecity/wijmo @grapecity/wijmo.grid"
-        ]
-    },
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
