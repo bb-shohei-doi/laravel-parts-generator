@@ -1,9 +1,11 @@
-<div>
-    @if ($isShowDelete:uc:tableModal)
-    <div class="fixed z-10 inset-0 overflow-y-auto">
+<div x-data="{ show: @entangle('isShowDelete:uc:tableModal') }">
+    <div x-show="show"
+        x-transition:enter="modal-enter"
+        x-transition:leave="modal-leave"
+        class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div @click.outside="show = false" class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
                         Confirm Delete :lc:table information.
                     </h3>
@@ -26,5 +28,4 @@
             </div>
         </div>
     </div>
-    @endif
 </div>

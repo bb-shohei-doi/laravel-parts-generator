@@ -1,0 +1,15 @@
+@keyframes modalEnter {
+    0% { transform: scale(0.9); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+@keyframes modalLeave {
+    0% { transform: scale(1); }
+    100% { transform: scale(0.9); }
+}
+.modal-enter {
+    animation: modalEnter 150ms ease-out forwards;
+}
+.modal-leave {
+    animation: modalLeave 100ms ease-in forwards;
+}

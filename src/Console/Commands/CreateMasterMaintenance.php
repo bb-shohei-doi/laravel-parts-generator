@@ -63,6 +63,10 @@ class CreateMasterMaintenance extends Command
         $this->createLivewireDeleteModalComponent($table);
         // 12. list.jsを作成
         $this->createListJs($table);
+        // 13. master-maintenance-base.blade.phpを作成
+        $this->createMasterMaintenanceBase($table);
+        // 14. master-maintenance.cssをコピー
+        $this->copyMasterMaintenanceCss();
     }
 
     private function createRoute($table)
@@ -430,5 +434,23 @@ class CreateMasterMaintenance extends Command
             ];
         }
         return $columns;
+    }
+
+    private function createMasterMaintenanceBase(): void
+    {
+        // if not exists, create resources/views/layouts
+        $path = resource_path('views/layouts');
+        if (!file_exists($path)) {
+            mkdir($path);
+        }
+        // copy resources/views/templates/master-maintenance-base.blade.php to resources/views/layouts/master-maintenance-base.blade.php
+        $template = file_get_contents($this->rootDir . 'resources/views/templates/master-maintenance-base.blade.php');
+        file_put_contents(resource_path('views/layouts/master-maintenance-base.blade.php'), $template);
+    }
+
+    private function copyMasterMaintenanceCss(): void
+    {
+        $css = file_get_contents($this->rootDir . 'resources/css/master-maintenance.css');
+        file_put_contents(resource_path('css/master-maintenance.css'), $css);
     }
 }

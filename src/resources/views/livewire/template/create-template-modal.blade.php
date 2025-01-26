@@ -1,22 +1,25 @@
-<div>
+<div x-data="{ show: @entangle('isShowCreate:uc:tableModal') }">
     <button wire:click="showCreate:uc:tableModal()" type="button"
         class="text-white bg-blue-700 hover:bg-blue-600 mt-3 w-60 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 font-medium">
         Create :uc:table
     </button>
 
-    @if ($isShowCreate:uc:tableModal)
-    <div class="fixed z-10 inset-0 overflow-y-auto">
+    <div x-show="show"
+        x-transition:enter="modal-enter"
+        x-transition:leave="modal-leave"
+        class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hiden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div
+                class="inline-block align-bottom bg-white rounded-lg text-left overflow-hiden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div @click.outside="show = false" class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
                         Create :lc:table information.
                     </h3>
                     <div class="mt-2">
                         @if ($errors)
-                        @foreach ($errors->all() as $error)
-                        <span class="text-white bg-red-600 rounded px-2 py-1">{{ $error }}</span>
-                        @endforeach
+                            @foreach ($errors->all() as $error)
+                                <span class="text-white bg-red-600 rounded px-2 py-1">{{ $error }}</span>
+                            @endforeach
                         @endif
                         :columns
                     </div>
@@ -33,5 +36,4 @@
             </div>
         </div>
     </div>
-    @endif
 </div>
