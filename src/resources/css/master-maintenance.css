@@ -13,3 +13,44 @@
 .modal-leave {
     animation: modalLeave 100ms ease-in forwards;
 }
+
+.dli-exclamation-circle {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    position: relative;
+    width: 1em;
+    height: 1em;
+    border: 0.1em solid currentColor;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+  
+  .dli-exclamation-circle > span {
+    width: 0.15em;
+    height: 0.6em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  
+  .dli-exclamation-circle > span::before, .dli-exclamation-circle > span::after {
+    content: '';
+    display: block;
+    width: inherit;
+    background: currentColor;
+  }
+  
+  .dli-exclamation-circle > span::before {
+    margin-bottom: 0.1em;
+    height: 0.35em;
+    border-radius: 0.025em;
+  }
+  
+  .dli-exclamation-circle > span::after {
+    height: 0.15em;
+    border-radius: 50%;
+  }

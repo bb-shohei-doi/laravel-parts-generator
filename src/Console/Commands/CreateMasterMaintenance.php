@@ -399,6 +399,7 @@ class CreateMasterMaintenance extends Command
             $columns .= "        <div class=\"form-group\">\n";
             $columns .= "            <label for=\"{$column}\" class=\"block text-sm font-medium text-gray-700\">{$comment}</label>\n";
             $columns .= "            <input type=\"text\" class=\"form-control border border-gray-300 rounded-md\" id=\"{$column}\" wire:model=\"{$column}\">\n";
+            $columns .= "            @error('{$column}')<span class=\"text-red-500\">{{ \$message }}</span>@enderror\n";
             $columns .= "        </div>\n";
         }
         return $columns;
